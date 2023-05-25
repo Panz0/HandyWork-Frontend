@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:handywork0/offersandreviews/deleteoffercall.dart';
 
 import '../homepagematerial/myjobs/reviewsonmyjob.dart';
@@ -103,13 +104,16 @@ class _myoffersState extends State<myoffers> {
           children: [
             GestureDetector(
               onTap: accepted == true? () async {
+                EasyLoading.show( maskType: EasyLoadingMaskType.black,status: "Loading ...");
                 await  getreviewsnmyjob(usertoken: Usertokenallpages, jobid: jobId);
+                EasyLoading.dismiss();
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  reviewsonmyjob(),));
                // await anyuserprofile2(
                   // user, Usertokenallpages); // todo go to review list
                 // Navigator.of(context).push(MaterialPageRoute(
                 //   builder: (context) => ownerofofferprofile(),
                 // ));
+
               }:null,
               child: Container(
                 decoration: BoxDecoration(
@@ -139,12 +143,15 @@ class _myoffersState extends State<myoffers> {
                         backgroundImage: NetworkImage(jobImageUrl),
                       ),
                     ),
-                    Text(
+                    Container(width: MediaQuery.of(context).size.width*0.6,
+                    child: Text(
                       '${jobTitle}',
                       style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
                           color: Colors.white),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,),
                     )
                   ],
                 ),

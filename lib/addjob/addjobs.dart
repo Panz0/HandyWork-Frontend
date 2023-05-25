@@ -55,10 +55,10 @@ class _addjobState extends State<addjob> {
           listofimages64.add((await imageconvert(listofimages[0].path)));
           listofimages64.add((await imageconvert(listofimages[1].path)));
         }else{
-          for(int i=0;i<listofimages.length-1;i++){
+          for(int i=0;i<listofimages.length;i++){
             _images.add(listofimages[i]);
           }
-          for(int i=0;i<_images.length-1;i++){
+          for(int i=0;i<_images.length;i++){
             listofimages64.add((await imageconvert(listofimages[i].path)));
           }
         }
@@ -352,6 +352,7 @@ print(listofimages64);
           "content-type": "application/json"
         });
     print(res.statusCode);
+    print(res.body);
   }
 
   String dropdownValue = listcity[0];
