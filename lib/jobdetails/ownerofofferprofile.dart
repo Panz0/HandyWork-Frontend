@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import '../allconvertthings/jobowneruserinfo.dart';
 import '../main.dart';
@@ -78,7 +79,9 @@ class _ownerofofferprofileState extends State<ownerofofferprofile> {
                   children: [
                     GestureDetector(
                       onTap: () async{
+                        EasyLoading.show( maskType: EasyLoadingMaskType.black,status: "Loading ...");
                         await ratingspageasbothcall(jobownerusername2, Usertokenallpages, 'offeredby', 'USER_REVIEW');
+                        EasyLoading.dismiss();
                         Navigator.of(context).push(MaterialPageRoute(builder: (context) =>ratingspageaslisterofferedby(),));
                         },
                       child: Column(
@@ -90,7 +93,9 @@ class _ownerofofferprofileState extends State<ownerofofferprofile> {
                     ),
                     GestureDetector(
                       onTap: () async{
+                        EasyLoading.show( maskType: EasyLoadingMaskType.black,status: "Loading ...");
                         await ratingspageasbothcall(jobownerusername2, Usertokenallpages, 'offeredby', 'JOB_REVIEW');
+                        EasyLoading.dismiss();
                         Navigator.of(context).push(MaterialPageRoute(builder: (context) =>ratingspageastakerofferedby(),));
                       },
                       child: Column(

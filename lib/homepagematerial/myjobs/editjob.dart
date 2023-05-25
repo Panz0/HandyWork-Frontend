@@ -51,8 +51,10 @@ class _editjobState extends State<editjob> {
     return Scaffold(
       appBar: AppBar(
         actions:[TextButton(style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white)),onPressed: ()async{
+          EasyLoading.show( maskType: EasyLoadingMaskType.black,status: "Loading ...");
         await  deletejobcall(ctx: context, usertoken: Usertokenallpages, jobid: jbid);
        // await getownjobs(userNameFromToken,Usertokenallpages);
+          EasyLoading.dismiss();
 
         }, child: Text('DeleteJob',style: TextStyle(color: Colors.red),))],
         title: Text('Edit Job',style: TextStyle(color: Colors.black),),centerTitle: true,backgroundColor: Colors.white, leading: IconButton(
@@ -159,13 +161,14 @@ class _editjobState extends State<editjob> {
         ),
       ],),
       floatingActionButton: FloatingActionButton(onPressed: () async{
+        EasyLoading.show( maskType: EasyLoadingMaskType.black,status: "Loading ...");
         print(formfieldjobcitystr);
         formfieldjobtitlestr = formfieldjobtitle.text;
         formfieldjobfieldstr = formfieldjobfield.text;
         // formfieldjobcitystr = formfieldjobcity.text;
         formfieldjobdescriptionstr = formfieldjobdescription.text;
         if (_mykey.currentState!.validate() && formfieldjobcitystr!='CITY' && formfieldjobcitystr!=''&&formfieldjobcitystr!= null) {
-          EasyLoading.show( maskType: EasyLoadingMaskType.black,status: "Loading ...");
+
           await savejobcall(ctx: context, usertoken: Usertokenallpages, jobid: jbid);
          // await getownjobs(userNameFromToken,Usertokenallpages);
 
@@ -182,13 +185,14 @@ class _editjobState extends State<editjob> {
 
           formfieldjobcitystr=listcity[0];
           dropdownValue = listcity[0];
-
+          EasyLoading.dismiss();
         } else {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(behavior: SnackBarBehavior.floating,
               margin: EdgeInsets.only(bottom: 10),
               content: Text("Check your entries!"),
               duration: Duration(seconds: 2)));
           print('something wrong');
+          EasyLoading.dismiss();
         }
 
       },backgroundColor: Colors.black,child: Text('SaveJob')),

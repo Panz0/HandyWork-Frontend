@@ -103,6 +103,7 @@ ListView browsepageJobs=buildallJobs(context,numberofalljobs);
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)), backgroundColor: Colors.black),
                 child: Text("Previous"),onPressed: ()async{
+              EasyLoading.show( maskType: EasyLoadingMaskType.black,status: "Loading ...");
               if(browsepages != 0){
                 browsepages =browsepages-1;
                 if(filteredcity==null){filteredcity='';}
@@ -117,8 +118,13 @@ ListView browsepageJobs=buildallJobs(context,numberofalljobs);
                   });
                   buildallJobs(context,numberofalljobs);
                 });
+              }else{
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(behavior: SnackBarBehavior.floating,
+                    margin: EdgeInsets.only(bottom: 10),
+                    content: Text("You are at Page 1"),
+                    duration: Duration(seconds: 2)));
               }
-
+            EasyLoading.dismiss();
             }), ),
           Container(
             width: MediaQuery.of(ctx).size.width*0.4,
@@ -127,6 +133,7 @@ ListView browsepageJobs=buildallJobs(context,numberofalljobs);
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)), backgroundColor: Colors.black),
                 child: Text("Next"),onPressed: ()async{
+              EasyLoading.show( maskType: EasyLoadingMaskType.black,status: "Loading ...");
              if(browsepages<allpagesnum-1) {
                 browsepages = browsepages + 1;
                 if(filteredcity==null){filteredcity='';}
@@ -144,7 +151,13 @@ ListView browsepageJobs=buildallJobs(context,numberofalljobs);
                   print(browsepages);
                   print(allpagesnum-1);
                 });
-              }
+              }else{
+               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(behavior: SnackBarBehavior.floating,
+                   margin: EdgeInsets.only(bottom: 10),
+                   content: Text("You are at Last Page"),
+                   duration: Duration(seconds: 2)));
+             }
+              EasyLoading.dismiss();
             }),
           )]));
     w.add(SizedBox(height: 35,));

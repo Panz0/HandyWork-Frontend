@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:handywork0/profile/updateprofile.dart';
 import 'package:handywork0/ratingspage/aslister/ratingspageaslistermy.dart';
 import 'package:handywork0/ratingspage/ratingspagecall.dart';
@@ -147,7 +148,9 @@ class _MyprofileState extends State<Myprofile> {
                   children: [
                     GestureDetector(
                       onTap: () async{
+                        EasyLoading.show( maskType: EasyLoadingMaskType.black,status: "Loading ...");
                         await ratingspageasbothcall(userNameFromToken, Usertokenallpages, 'my', 'USER_REVIEW');
+                        EasyLoading.dismiss();
                         Navigator.of(context).push(MaterialPageRoute(builder: (context) =>ratingspageaslistermy(),));
                       },
                       child: Column(
@@ -159,7 +162,9 @@ class _MyprofileState extends State<Myprofile> {
                     ),
                     GestureDetector(
                       onTap: () async{
+                        EasyLoading.show( maskType: EasyLoadingMaskType.black,status: "Loading ...");
                         await ratingspageasbothcall(userNameFromToken, Usertokenallpages, 'my', 'JOB_REVIEW');
+                        EasyLoading.dismiss();
                         Navigator.of(context).push(MaterialPageRoute(builder: (context) =>ratingspageastakermy(),));
                       },
                       child: Column(

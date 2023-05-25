@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:handywork0/homepagematerial/homepage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
@@ -363,6 +364,7 @@ class _registerState extends State<register> {
                                             BorderRadius.circular(20)),
                                         primary: Colors.black),
                                     onPressed: () async {
+                                     await EasyLoading.show( maskType: EasyLoadingMaskType.black,status: "Loading ...");
                                       _image == null
                                           ? imgpathstr64 = ""
                                           : imgpathstr64 =
@@ -373,13 +375,14 @@ class _registerState extends State<register> {
 
                                         print('all validates are good ');
                                         posting(context);
-
+                                        EasyLoading.dismiss();
                                       } else {
                                         print('something wrong');
                                         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(behavior: SnackBarBehavior.floating,
                                             margin: EdgeInsets.only(bottom: 10),
                                             content: Text("Check your entries!"),
                                             duration: Duration(seconds: 2)));
+                                        EasyLoading.dismiss();
                                       }
                                     },
                                   )),
@@ -391,6 +394,9 @@ class _registerState extends State<register> {
               ),
             ])));
   }
+
+
+
   String dropdownValue = listcity[0];
   @override
   Widget builddropdownbutton(BuildContext context) {

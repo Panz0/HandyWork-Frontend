@@ -1,6 +1,7 @@
 
 import 'dart:io';
 
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:handywork0/profile/updateconverts/updatefirst.dart';
 import 'package:handywork0/profile/updateconverts/updatepasswordconvert.dart';
 import 'package:handywork0/profile/updateconverts/updatepfpfileconvert.dart';
@@ -154,6 +155,7 @@ class _updateinfoState extends State<updateinfo> {
                  city= myprofileuserinfo['city'];
                  email= myprofileuserinfo['email'];
               });
+
               Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => homepage()));
             },
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:handywork0/ratingspage/astaker/ratingspageastakerlistedby.dart';
 
 import '../allconvertthings/jobowneruserinfo.dart';
@@ -77,7 +78,9 @@ class _wonerofjobprofileState extends State<wonerofjobprofile> {
                   children: [
                     GestureDetector(
                       onTap: () async{
+                        EasyLoading.show( maskType: EasyLoadingMaskType.black,status: "Loading ...");
                         await ratingspageasbothcall(jobownerusername, Usertokenallpages, 'listedby', 'USER_REVIEW');
+                        EasyLoading.dismiss();
                         Navigator.of(context).push(MaterialPageRoute(builder: (context) =>ratingspageaslisteraslistedby(),));
                       },
                       child: Column(
@@ -89,7 +92,9 @@ class _wonerofjobprofileState extends State<wonerofjobprofile> {
                     ),
                     GestureDetector(
                       onTap: () async{
+                        EasyLoading.show( maskType: EasyLoadingMaskType.black,status: "Loading ...");
                         await ratingspageasbothcall(jobownerusername, Usertokenallpages, 'listedby', 'JOB_REVIEW');
+                        EasyLoading.dismiss();
                         Navigator.of(context).push(MaterialPageRoute(builder: (context) =>ratingspageastakerlistedby(),));
                       },
                       child: Column(

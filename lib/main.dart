@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:handywork0/allconvertthings/getalljobs.dart';
 import 'package:handywork0/homepagematerial/homepage.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:handywork0/splashscreen.dart';
 import 'package:http/http.dart' as http;
-
-import 'dart:convert' as convert;
 
 import 'allconvertthings/getownjobs.dart';
 import 'allconvertthings/jobowneruserinfo.dart';
@@ -13,8 +12,6 @@ import 'allconvertthings/jwtdecode.dart';
 import 'allconvertthings/signintoken.dart';
 import 'allconvertthings/taketoken.dart';
 import 'allconvertthings/userinfo.dart';
-import 'brosepage/browsepage.dart';
-import 'homepagematerial/myjobs/myjobspage.dart';
 import 'myoffers/myofferscall.dart';
 import 'signup.dart';
 
@@ -46,11 +43,12 @@ var _secure = false;
 class _home0State extends State<home0> {
   @override
   Widget build(BuildContext context) {
-   // _formfieldusername.clear();
-   // _formfieldpassword.clear();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-
       home: signin(),
       builder: EasyLoading.init(),
     );
@@ -74,84 +72,88 @@ class _signinState extends State<signin> {
     return Scaffold(
         body: Padding(
             padding: EdgeInsets.all(30),
-            child: ListView(
-              children: [
-
-                Column(crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(height: MediaQuery.of(context).size.height*0.3,
-                        width: double.infinity,child:Image.asset('assets/images/handywork.png'), ),
-                  SizedBox(height: 20),
-                  Text("Welcome Back",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 30)),
-                  SizedBox(height: 10),
-                  Row(
-                    children: [
-                      Text("New to this app?", style: TextStyle(fontSize: 15)),
-                      SizedBox(width: 10),
-                      InkWell(
-                        child: Text("Sign Up",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
-                              color: Colors.blue,
-                              decoration: TextDecoration.underline,
-                            )),
-                        onTap: () =>
-                            Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => register(),
-                        )),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 50),
-                  TextFormField(
-                      controller: _formfieldusername,
-                      decoration: const InputDecoration(
-                          prefixIcon: Icon(Icons.person),
-                          label: Text('Username'),
-                          border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50))))),
-                  SizedBox(height: 25),
-                  // TextFormField(
-                  //     controller: _formfieldpassword,
-                  //     decoration: const InputDecoration(
-                  //         label: Text('Password'),
-                  //         border: OutlineInputBorder(
-                  //             borderRadius:
-                  //                 BorderRadius.all(Radius.circular(50))))),
-                  buildpasswordfield("Password",true),
-                  SizedBox(height: 15),
-                  // Text('Forgot Password?',
-                  //     style: TextStyle(
-                  //         fontWeight: FontWeight.bold,
-                  //         decoration: TextDecoration.underline)),
-                  SizedBox(height: 20),
-                  Container(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                          child: Text('SignIn'),
-                          style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20)), backgroundColor: Colors.black),
-                          onPressed: () async {
-
-                            postingsignin(context);
-
-                           // await  getownjobs(userNameFromToken,_UserToken);
-                           // print("${ownedjobs[0]["imagesUrls"]}");
-                           //  Navigator.of(context).push(MaterialPageRoute(
-                           //      builder: (context) => homepage()));
-                          })),
-                  SizedBox(height: 15),
-                ]),
-              ],
-            ))
+            child: buildListViewLogin(context))
 
     );
 
+  }
+
+  ListView buildListViewLogin(BuildContext context) {
+    return ListView(
+            children: [
+
+              Column(crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(height: MediaQuery.of(context).size.height*0.3,
+                      width: double.infinity,child:Image.asset('assets/images/handywork.png'), ),
+                SizedBox(height: 20),
+                Text("Welcome Back",
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 30)),
+                SizedBox(height: 10),
+                Row(
+                  children: [
+                    Text("New to this app?", style: TextStyle(fontSize: 15)),
+                    SizedBox(width: 10),
+                    InkWell(
+                      child: Text("Sign Up",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                            color: Colors.blue,
+                            decoration: TextDecoration.underline,
+                          )),
+                      onTap: () =>
+                          Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => register(),
+                      )),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 50),
+                TextFormField(
+                    controller: _formfieldusername,
+                    decoration: const InputDecoration(
+                        prefixIcon: Icon(Icons.person),
+                        label: Text('Username'),
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(50))))),
+                SizedBox(height: 25),
+                // TextFormField(
+                //     controller: _formfieldpassword,
+                //     decoration: const InputDecoration(
+                //         label: Text('Password'),
+                //         border: OutlineInputBorder(
+                //             borderRadius:
+                //                 BorderRadius.all(Radius.circular(50))))),
+                buildpasswordfield("Password",true),
+                SizedBox(height: 15),
+                // Text('Forgot Password?',
+                //     style: TextStyle(
+                //         fontWeight: FontWeight.bold,
+                //         decoration: TextDecoration.underline)),
+                SizedBox(height: 20),
+                Container(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                        child: Text('SignIn'),
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)), backgroundColor: Colors.black),
+                        onPressed: () async {
+
+                          postingsignin(context);
+
+                         // await  getownjobs(userNameFromToken,_UserToken);
+                         // print("${ownedjobs[0]["imagesUrls"]}");
+                         //  Navigator.of(context).push(MaterialPageRoute(
+                         //      builder: (context) => homepage()));
+                        })),
+                SizedBox(height: 15),
+              ]),
+            ],
+          );
   }
 
   buildpasswordfield(String nameoffield, bool eye) {
