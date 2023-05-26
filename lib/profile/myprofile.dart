@@ -35,6 +35,7 @@ class _MyprofileState extends State<Myprofile> {
 
 
   _showPasswordDialog() async {
+    authbool=false;
     return showDialog(
         context: context,
         builder: (context) {

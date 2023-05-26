@@ -22,8 +22,8 @@ postoffer(int amount, String jobid ,String usertoken ,BuildContext context)async
         body: jdata);
     print(res.statusCode);
     if (res.statusCode == 200) {
-      EasyLoading.showToast("you made a Deal");
-      EasyLoading.dismiss();
+      EasyLoading.showToast("you made a Deal",duration: Duration(seconds: 3));
+     // EasyLoading.dismiss();
       Navigator.of(context).pop();
 
     }
