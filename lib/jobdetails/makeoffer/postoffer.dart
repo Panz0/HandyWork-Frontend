@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
 
 import '../../homepagematerial/homepage.dart';
@@ -21,8 +22,10 @@ postoffer(int amount, String jobid ,String usertoken ,BuildContext context)async
         body: jdata);
     print(res.statusCode);
     if (res.statusCode == 200) {
+      EasyLoading.showToast("you made a Deal");
+      EasyLoading.dismiss();
+      Navigator.of(context).pop();
 
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => homepage(),));
     }
 }
 

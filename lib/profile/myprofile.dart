@@ -22,6 +22,7 @@ var lname=  myprofileuserinfo['lastName'];
 var phone= myprofileuserinfo['phoneNumber'];
 var city= myprofileuserinfo['city'];
 var email= myprofileuserinfo['email'];
+var authbool = false;
 
 class Myprofile extends StatefulWidget {
   const Myprofile({Key? key}) : super(key: key);
@@ -62,7 +63,12 @@ class _MyprofileState extends State<Myprofile> {
                               duration: Duration(seconds: 3)));
                         }else{
                           _passwordcheckcontroller.clear();
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => updateinfo()),);
+                          setState(() {
+                            authbool=!authbool;
+                          });
+                          Navigator.pop(context);
+                          // Navigator.push(context, MaterialPageRoute(builder: (context) => updateinfo()));
+
                         }
                       },
                     ),
@@ -222,8 +228,10 @@ class _MyprofileState extends State<Myprofile> {
                   color: Colors.black,
                   borderRadius: BorderRadius.all(Radius.circular(15))),
             ),
-            onTap: () {
-              _showPasswordDialog();
+            onTap: () async{
+            await _showPasswordDialog();
+            await  authbool==true?Navigator.push(context, MaterialPageRoute(builder: (context) => updateinfo())):null;
+              //todo asdasdasd
              // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => updateinfo()),);
             },
           )

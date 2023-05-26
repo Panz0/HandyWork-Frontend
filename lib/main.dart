@@ -219,7 +219,7 @@ void postingsignin(BuildContext ctx) async {
     await profileratings(userNameFromToken, Usertokenallpages, 'my');
     EasyLoading.dismiss();
     ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(
-        content: Text("Welcome Back"), duration: Duration(seconds: 3)));
+        content: Text("Welcome Back"), duration: Duration(seconds: 2)));
     Navigator.of(ctx).push(MaterialPageRoute(
       builder: (context) => const homepage(),
     ));

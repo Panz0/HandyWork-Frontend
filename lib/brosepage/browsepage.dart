@@ -9,6 +9,7 @@ import 'package:handywork0/jobdetails/showjobdetails.dart';
 import '../allconvertthings/getalljobs.dart';
 import '../allconvertthings/getownjobs.dart';
 import '../allconvertthings/jobowneruserinfo.dart';
+import '../homepagematerial/homepage.dart';
 import '../main.dart';
 import '../profile/myprofile.dart';
 import 'filterdroplist.dart';
@@ -29,20 +30,130 @@ class _navigationbarHome extends State<Browsepage> {
   final ScrollController _scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
+    ListView browsepageJobs=buildallJobs(context,numberofalljobs);
+     filterby(BuildContext ctx) async{
+
+       filteredcity='';
+       filteredfield='';
+       dropdownfinalfilter='';
+      showDialog(
+          useSafeArea: true,
+         context: ctx,
+         //useRootNavigator: true,
+
+          builder: (BuildContext ctx1) {
+            return  AlertDialog(
+                shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                title: Text('Filter By'),
+                content: Container(
+                  height: MediaQuery.of(ctx1).size.height / 5.5,
+                  width: MediaQuery.of(ctx1).size.width,
+                  child: Column(
+                    children: [
+                      Row(children: [
+                       Text("City:  "),
+                        DropdownButtonCity(),
+                      //   Expanded(child: Container(width: MediaQuery.of(ctx).size.width*0.25,
+                      //     child: Autocomplete(
+                      //       optionsBuilder: (textEditingValue) {
+                      //         if(textEditingValue.text == ''){
+                      //           return const Iterable<String>.empty();
+                      //         }
+                      //         filteredcity=textEditingValue.text;
+                      //         return listcity.where((String element) =>element.contains(textEditingValue.text));
+                      //
+                      //       },)
+                      // ),),
+                        ],),
+                      SizedBox(height: 4),
+                      Row(children: [
+                        Text("Field: "),
+                        Container(width: MediaQuery.of(ctx1).size.width*0.17,
+                          child: Autocomplete(
+                            optionsBuilder: (textEditingValue) {
+                              if(textEditingValue.text == ''){
+                                return const Iterable<String>.empty();
+                              }
+                              filteredfield=textEditingValue.text;
+                              return listfield.where((String element) =>element.contains(textEditingValue.text));
+
+                            },),
+                        ),
+                      ],),
+                      SizedBox(height: 5),
+                     Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                       children: [
+                         ElevatedButton(onPressed: ()async{
+
+                           filteredcity='';
+                           print(filteredfield);
+                           filteredfield='';
+                           await getalljobs(Usertokenallpages,0,filteredcity,filteredfield);
+                           setState((){
+                             browsepages=0;
+                             browsepageJobs=buildallJobs(context,numberofalljobs);
+                             print(listcity);
+                           });
+                           // Navigator.of(ctx).push(MaterialPageRoute(builder: (context) => homepage(),));
+                           Navigator.pop(ctx1);
+                           //Navigator.of(ctx).pushReplacement(MaterialPageRoute(builder: (context) => const homepage()));
+                         },
+                             child: Text('Reset'),style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.black))),
+
+                       ElevatedButton(onPressed: ()async{
+
+                         print('eljowab el final is ${dropdownfinalfilter}');
+                         if(dropdownfinalfilter!='CITY'){
+                           filteredcity=dropdownfinalfilter;
+                         }else{
+                           filteredcity='';
+                           print(filteredcity);
+                         }
+                         print(filteredcity);
+                         print(filteredfield);
+                         if(filteredfield==null){filteredfield='';}
+                         await getalljobs(Usertokenallpages,0,filteredcity,filteredfield);
+                        //filteredcity='';
+                        // filteredfield='';
+                         setState((){
+                           browsepages=0;
+                           browsepageJobs=buildallJobs(context,numberofalljobs);
+                           print(listcity);
+                         });
+                         Navigator.pop(ctx1);
+
+                        // Navigator.of(ctx1).pushReplacement(MaterialPageRoute(builder: (context) => homepage(),));
+                       },
+                           child: Text('Save'),style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.black))),
 
 
-ListView browsepageJobs=buildallJobs(context,numberofalljobs);
+                     ],)
+
+                    ],
+                  ),
+                ),
+            );
+          });
+    }
+
+
+
     return Scaffold(
       appBar: AppBar(title: Row(
           children: [
            Expanded(child:  Text("Browse jobs",style: TextStyle(color: Colors.black),),flex: 4),
             ElevatedButton(onPressed: ()async{
+
              await filterby(context);
+            // await getalljobs(Usertokenallpages,0,filteredcity,filteredfield);
               setState((){
                 browsepages=0;
                 browsepageJobs=buildallJobs(context,numberofalljobs);
                 print(listcity);
               });
+             filteredcity='';
+             filteredfield='';
             },
                 child:Text("Filter"),style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.black))),
 

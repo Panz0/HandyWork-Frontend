@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:handywork0/brosepage/browsepage.dart';
 
 import '../allconvertthings/getalljobs.dart';
 import '../main.dart';
@@ -10,93 +12,103 @@ List<String>  listcity =<String>['CITY','IRBED','JERASH','AJLOUN','AMMAN','BALQA
 var filteredcity='';
 var filteredfield='';
 var dropdownfinalfilter;
-     filterby(BuildContext ctx) {
-       filteredcity='';
-       filteredfield='';
-       dropdownfinalfilter='';
-      showDialog(
-          useSafeArea: true,
-          context: ctx,
-          builder: (BuildContext ctx) {
-            return  AlertDialog(
-                shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                title: Text('Filter By'),
-                content: Container(
-                  height: MediaQuery.of(ctx).size.height / 5.5,
-                  width: MediaQuery.of(ctx).size.width,
-                  child: Column(
-                    children: [
-                      Row(children: [
-                       Text("City:  "),
-                        DropdownButtonCity(),
-                      //   Expanded(child: Container(width: MediaQuery.of(ctx).size.width*0.25,
-                      //     child: Autocomplete(
-                      //       optionsBuilder: (textEditingValue) {
-                      //         if(textEditingValue.text == ''){
-                      //           return const Iterable<String>.empty();
-                      //         }
-                      //         filteredcity=textEditingValue.text;
-                      //         return listcity.where((String element) =>element.contains(textEditingValue.text));
-                      //
-                      //       },)
-                      // ),),
-                        ],),
-                      SizedBox(height: 4),
-                      Row(children: [
-                        Text("Field: "),
-                        Container(width: MediaQuery.of(ctx).size.width*0.17,
-                          child: Autocomplete(
-                            optionsBuilder: (textEditingValue) {
-                              if(textEditingValue.text == ''){
-                                return const Iterable<String>.empty();
-                              }
-                              filteredfield=textEditingValue.text;
-                              return listfield.where((String element) =>element.contains(textEditingValue.text));
-
-                            },),
-                        ),
-                      ],),
-                      SizedBox(height: 5),
-                     Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
-                       children: [
-                         ElevatedButton(onPressed: ()async{
-                           filteredcity='';
-                           print(filteredfield);
-                           filteredfield='';
-                           await getalljobs(Usertokenallpages,0,filteredcity,filteredfield);
-                            Navigator.of(ctx).pushReplacement(MaterialPageRoute(builder: (context) => homepage(),));
-
-                         },
-                             child: Text('Reset'),style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.black))),
-
-                       ElevatedButton(onPressed: ()async{
-                         print('eljowab el final is ${dropdownfinalfilter}');
-                         if(dropdownfinalfilter!='CITY'){
-                           filteredcity=dropdownfinalfilter;
-                         }else{
-                           filteredcity='';
-                           print(filteredcity);
-                         }
-                         print(filteredcity);
-                         print(filteredfield);
-                         if(filteredfield==null){filteredfield='';}
-                         await getalljobs(Usertokenallpages,0,filteredcity,filteredfield);
-                         filteredcity='';
-                         filteredfield='';
-                         Navigator.of(ctx).pushReplacement(MaterialPageRoute(builder: (context) => homepage(),));
-                       },
-                           child: Text('Save'),style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.black))),
-
-
-                     ],)
-
-                    ],
-                  ),
-                ),
-            );
-          });
-    }
+    //  filterby(BuildContext ctx) async{
+    //
+    //    filteredcity='';
+    //    filteredfield='';
+    //    dropdownfinalfilter='';
+    //   showDialog(
+    //       useSafeArea: true,
+    //      context: ctx,
+    //      //useRootNavigator: true,
+    //
+    //       builder: (BuildContext ctx1) {
+    //         return  AlertDialog(
+    //             shape:
+    //             RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+    //             title: Text('Filter By'),
+    //             content: Container(
+    //               height: MediaQuery.of(ctx1).size.height / 5.5,
+    //               width: MediaQuery.of(ctx1).size.width,
+    //               child: Column(
+    //                 children: [
+    //                   Row(children: [
+    //                    Text("City:  "),
+    //                     DropdownButtonCity(),
+    //                   //   Expanded(child: Container(width: MediaQuery.of(ctx).size.width*0.25,
+    //                   //     child: Autocomplete(
+    //                   //       optionsBuilder: (textEditingValue) {
+    //                   //         if(textEditingValue.text == ''){
+    //                   //           return const Iterable<String>.empty();
+    //                   //         }
+    //                   //         filteredcity=textEditingValue.text;
+    //                   //         return listcity.where((String element) =>element.contains(textEditingValue.text));
+    //                   //
+    //                   //       },)
+    //                   // ),),
+    //                     ],),
+    //                   SizedBox(height: 4),
+    //                   Row(children: [
+    //                     Text("Field: "),
+    //                     Container(width: MediaQuery.of(ctx1).size.width*0.17,
+    //                       child: Autocomplete(
+    //                         optionsBuilder: (textEditingValue) {
+    //                           if(textEditingValue.text == ''){
+    //                             return const Iterable<String>.empty();
+    //                           }
+    //                           filteredfield=textEditingValue.text;
+    //                           return listfield.where((String element) =>element.contains(textEditingValue.text));
+    //
+    //                         },),
+    //                     ),
+    //                   ],),
+    //                   SizedBox(height: 5),
+    //                  Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+    //                    children: [
+    //                      ElevatedButton(onPressed: ()async{
+    //
+    //                        filteredcity='';
+    //                        print(filteredfield);
+    //                        filteredfield='';
+    //                        await getalljobs(Usertokenallpages,0,filteredcity,filteredfield);
+    //
+    //                        // Navigator.of(ctx).push(MaterialPageRoute(builder: (context) => homepage(),));
+    //                        Navigator.pop(ctx1);
+    //                        //Navigator.of(ctx).pushReplacement(MaterialPageRoute(builder: (context) => const homepage()));
+    //                      },
+    //                          child: Text('Reset'),style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.black))),
+    //
+    //                    ElevatedButton(onPressed: ()async{
+    //
+    //                      print('eljowab el final is ${dropdownfinalfilter}');
+    //                      if(dropdownfinalfilter!='CITY'){
+    //                        filteredcity=dropdownfinalfilter;
+    //                      }else{
+    //                        filteredcity='';
+    //                        print(filteredcity);
+    //                      }
+    //                      print(filteredcity);
+    //                      print(filteredfield);
+    //                      if(filteredfield==null){filteredfield='';}
+    //                      await getalljobs(Usertokenallpages,0,filteredcity,filteredfield);
+    //                     //filteredcity='';
+    //                     // filteredfield='';
+    //
+    //                      Navigator.pop(ctx1);
+    //
+    //                     // Navigator.of(ctx1).pushReplacement(MaterialPageRoute(builder: (context) => homepage(),));
+    //                    },
+    //                        child: Text('Save'),style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.black))),
+    //
+    //
+    //                  ],)
+    //
+    //                 ],
+    //               ),
+    //             ),
+    //         );
+    //       });
+    // }
 
 
 

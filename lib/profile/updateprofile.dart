@@ -155,8 +155,8 @@ class _updateinfoState extends State<updateinfo> {
                  city= myprofileuserinfo['city'];
                  email= myprofileuserinfo['email'];
               });
-
-              Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => homepage()));
+              Navigator.pop(context);
+             // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => homepage()));
             },
           ),
         ),

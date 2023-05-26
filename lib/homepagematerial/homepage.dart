@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:handywork0/homepagematerial/settings.dart';
 import 'package:handywork0/profile/myprofile.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
@@ -15,8 +16,14 @@ import '../brosepage/browsepage.dart';
 PersistentTabController homepagebarcontroller = PersistentTabController(initialIndex: 1);
 class homepage extends StatelessWidget {
   const homepage({Key? key}) : super(key: key);
+  // @override
+  // initState() {
+  //   EasyLoading.init();
+  // }
+
 @override
 Widget build(BuildContext context) {
+
   List<Widget> homepagebarlist() {
     return [
       myoffers(),
@@ -121,19 +128,5 @@ Widget build(BuildContext context) {
 }
 
 }
-class screen1 extends StatelessWidget {
-  const screen1({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text(
-          'Offers',
-          style: TextStyle(fontSize: 30),
-        ),
-      ),
-    );
-  }
-}
 
